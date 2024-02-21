@@ -55,10 +55,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  double _counter = 0;
   TextEditingController panjangController = TextEditingController();
   TextEditingController lebarController = TextEditingController();
-  TextEditingController tinggiController = TextEditingController();
+  TextEditingController tinggiBalokController = TextEditingController();
+  TextEditingController sisiController = TextEditingController();
+  TextEditingController diameterController = TextEditingController();
+  TextEditingController tinggiTabungController = TextEditingController();
 
   void _incrementCounter() {
     setState(() {
@@ -84,11 +87,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void hitungVolumeBalok(){
     int panjang = int.parse(panjangController.text);
     int lebar = int.parse(lebarController.text);
-    int tinggi = int.parse(tinggiController.text);
+    int tinggi = int.parse(tinggiBalokController.text);
     
-    int hasil = (panjang * lebar * tinggi);
-
-    print("Hasil : " + hasil.toString());
+    double hasil = (panjang * lebar * tinggi).toDouble();
 
     setState(() {
       _counter = hasil;
@@ -96,10 +97,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void hitungVolumeKubus(){
-    int sisi = int.parse(panjangController.text);
-    int hasil = (sisi * sisi * sisi);
-
-    print("Hasil : " + hasil.toString());
+    int sisi = int.parse(sisiController.text);
+    double hasil = (sisi * sisi * sisi).toDouble();
     
     setState(() {
       _counter = hasil;
@@ -108,11 +107,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void hitungVolumeTabung(){
     double phi = 3.14;
-    double lebar = double.parse(lebarController.text);
-    double tinggi = double.parse(tinggiController.text);
-    double hasil = (phi * lebar * tinggi);
+    double diameter = double.parse(diameterController.text);
+    double tinggi = double.parse(tinggiTabungController.text);
+    double hasil = (phi * (diameter/2) * (diameter/2) * tinggi);
 
     print("Hasil : " + hasil.toString());
+
+    setState(() {
+      _counter = hasil;
+    });
   }
 
   @override
@@ -164,38 +167,61 @@ class _MyHomePageState extends State<MyHomePage> {
               controller: panjangController,
               decoration: InputDecoration(
               border: UnderlineInputBorder(),
-              labelText: "Input panjang",
+              labelText: "Inputkan panjang :",
             ),),
 
             TextFormField(
               controller: lebarController,
               decoration: InputDecoration(
               border: UnderlineInputBorder(),
-              labelText: "Input lebar",
+              labelText: "Inputkan lebar :",
             ),),
 
             TextFormField(
-              controller: tinggiController,
+              controller: tinggiBalokController,
               decoration: InputDecoration(
               border: UnderlineInputBorder(),
-              labelText: "Input tinggi",
+              labelText: "Inputkan tinggi :",
             ),),
 
             TextButton(
               onPressed:hitungVolumeBalok, 
-              child: const Text("Balok"),
+              child: const Text("Hitung Volume Balok"),
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all(Colors.blue))
                 ,),
+
+            TextFormField(
+              controller: sisiController,
+              decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: "Inputkan sisi : ",
+            ),),
+
             TextButton(
               onPressed:hitungVolumeKubus, 
-              child: const Text("Kubus"),
+              child: const Text("Hitung Volume Kubus"),
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all(Colors.blue))
                 ,),
-                TextButton(
+
+            TextFormField(
+              controller: diameterController,
+              decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: "Inputkan diameter : ",
+            ),),
+
+            TextFormField(
+              controller: tinggiTabungController,
+              decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: "Inputkan tinggi : ",
+            ),),
+
+            TextButton(
               onPressed:hitungVolumeTabung, 
-              child: const Text("Tabung"),
+              child: const Text("Hitung Volume Tabung"),
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all(Colors.blue))
                 ,)    
